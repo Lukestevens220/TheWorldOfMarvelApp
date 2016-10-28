@@ -78,7 +78,8 @@ dependencies {
     apt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
     provided "org.glassfish:javax.annotation:$rootProject.glassfishVersion"
     compile "com.google.dagger:dagger:$rootProject.daggerVersion"
-    compile "com.jakewharton:butterknife:$rootProject.butterknifVersion"
+    compile 'com.jakewharton:butterknife:8.4.0'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
 
     // Dependencies for local unit tests
     testCompile "junit:junit:$rootProject.ext.junitVersion"

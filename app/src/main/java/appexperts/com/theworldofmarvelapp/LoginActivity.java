@@ -28,6 +28,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,9 +42,13 @@ import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
+import butterknife.OnClick;
 import io.fabric.sdk.android.Fabric;
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -61,7 +66,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
-    private TwitterLoginButton loginButton;
+   // private TwitterLoginButton loginButton;
 
 
     /**
@@ -77,10 +82,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private UserLoginTask mAuthTask = null;
 
     // UI references.
-    private AutoCompleteTextView mEmailView;
-    private EditText mPasswordView;
-    private View mProgressView;
-    private View mLoginFormView;
+
+
+    @BindView(R.id.email) AutoCompleteTextView mEmailView;
+    @BindView(R.id.password) EditText mPasswordView;
+    @BindView(R.id.login_progress) View mProgressView;
+    @BindView(R.id.email_sign_in_button) Button mEmailSignInButton;
+    @BindView(R.id.login_form) View mLoginFormView;
+//    private CheckBox showBox;
+    @BindView(R.id.twitter_login_button) TwitterLoginButton loginButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,34 +99,24 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Crashlytics(), new Twitter(authConfig));
         setContentView(R.layout.activity_login);
+
+//        onCheckboxClicked();
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+//        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
-                }
-                return false;
-            }
-        });
+        //mPasswordView = (EditText) findViewById(R.id.password);
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
+        ButterKnife.bind(this);
+        //Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
 
-        loginButton = (TwitterLoginButton) findViewById(R.id.twitter_login_button);
+
+
+//        mLoginFormView = findViewById(R.id.login_form);
+//        mProgressView = findViewById(R.id.login_progress);
+
+        //loginButton = (TwitterLoginButton) findViewById(R.id.twitter_login_button);
         loginButton.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {
@@ -135,6 +136,40 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     }
 
+    /**
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     *
+     * Attempt at getting a show password to work
+     */
+//    public void onCheckboxClicked() {
+//
+//        showBox = (CheckBox) findViewById(R.id.checkBox);
+//
+//        showBox.setOnClickListener(new OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                // Is the view now checked?
+//
+//                if (showBox.isChecked()) {
+//                    mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//                        @Override
+//                        public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+//                            if (id == R.id.login || id == EditorInfo.IME_NULL) {
+//                                attemptLogin();
+//                                return true;
+//                            }
+//                            return false;
+//                        }
+//                    });
+//                }
+//            }
+//        });
+//    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -142,6 +177,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Activity that it triggered.
         loginButton.onActivityResult(requestCode, resultCode, data);
     }
+
+    @OnClick(R.id.email_sign_in_button)
+    public void login(){
+        attemptLogin();
+
+            }
+
 
 
     private void populateAutoComplete() {
@@ -282,7 +324,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // The ViewPropertyAnimator APIs are not available, so simply show
             // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+//            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
 
