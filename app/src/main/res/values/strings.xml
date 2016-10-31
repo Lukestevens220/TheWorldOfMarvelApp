@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">TheWorldOfMarvelApp</string>
+    <string name="app_name">The World Of Marvel</string>
     <string name="title_activity_login">Sign in</string>
-    <string name="welcome"> Welcome Enter User name</string>
+    <string name="welcome"> Welcome User</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

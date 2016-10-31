@@ -95,6 +95,7 @@ dependencies {
     androidTestCompile "org.mockito:mockito-core:$rootProject.ext.mockitoVersion"
     androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
     androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
+    compile 'com.squareup.okhttp3:okhttp:3.4.0-RC1'
 
 
     // Resolve conflicts between main and test APK:

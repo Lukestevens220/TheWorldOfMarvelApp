@@ -108,6 +108,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         //mPasswordView = (EditText) findViewById(R.id.password);
 
         ButterKnife.bind(this);
+
         //Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
 
 
@@ -127,6 +128,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 // with your app's user model
                 String msg = "@" + session.getUserName() + " logged in! (#" + session.getUserId() + ")";
                 Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(LoginActivity.this, NavigationViewActivity.class);
+                startActivity(intent);
+                finish();
             }
             @Override
             public void failure(TwitterException exception) {
@@ -279,6 +283,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
+            Intent intent = new Intent(LoginActivity.this, NavigationViewActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 
